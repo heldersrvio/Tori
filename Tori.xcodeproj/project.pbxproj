@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		9A6B929A260B84EA006BEB05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B9299260B84EA006BEB05 /* AppDelegate.swift */; };
 		9A6B929C260B84EA006BEB05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B929B260B84EA006BEB05 /* SceneDelegate.swift */; };
-		9A6B929E260B84EA006BEB05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B929D260B84EA006BEB05 /* ViewController.swift */; };
 		9A6B92A1260B84EA006BEB05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B929F260B84EA006BEB05 /* Main.storyboard */; };
 		9A6B92A3260B84EC006BEB05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B92A2260B84EC006BEB05 /* Assets.xcassets */; };
 		9A6B92A6260B84EC006BEB05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B92A4260B84EC006BEB05 /* LaunchScreen.storyboard */; };
+		9A6B92B0260B854C006BEB05 /* names.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B92AF260B854C006BEB05 /* names.txt */; };
+		9A6B92B3260B8C7C006BEB05 /* images.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B92B2260B8C7C006BEB05 /* images.txt */; };
+		9A6B92B6260B9095006BEB05 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B92B5260B9095006BEB05 /* CollectionViewController.swift */; };
+		9A6B92BB260B923B006BEB05 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B92BA260B923B006BEB05 /* CardCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9A6B9296260B84EA006BEB05 /* Tori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tori.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A6B9299260B84EA006BEB05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A6B929B260B84EA006BEB05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9A6B929D260B84EA006BEB05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9A6B92A0260B84EA006BEB05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A6B92A2260B84EC006BEB05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A6B92A5260B84EC006BEB05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A6B92A7260B84EC006BEB05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A6B92AF260B854C006BEB05 /* names.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = names.txt; sourceTree = "<group>"; };
+		9A6B92B2260B8C7C006BEB05 /* images.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = images.txt; sourceTree = "<group>"; };
+		9A6B92B5260B9095006BEB05 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		9A6B92BA260B923B006BEB05 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +64,14 @@
 			children = (
 				9A6B9299260B84EA006BEB05 /* AppDelegate.swift */,
 				9A6B929B260B84EA006BEB05 /* SceneDelegate.swift */,
-				9A6B929D260B84EA006BEB05 /* ViewController.swift */,
+				9A6B92B5260B9095006BEB05 /* CollectionViewController.swift */,
+				9A6B92BA260B923B006BEB05 /* CardCollectionViewCell.swift */,
 				9A6B929F260B84EA006BEB05 /* Main.storyboard */,
 				9A6B92A2260B84EC006BEB05 /* Assets.xcassets */,
 				9A6B92A4260B84EC006BEB05 /* LaunchScreen.storyboard */,
 				9A6B92A7260B84EC006BEB05 /* Info.plist */,
+				9A6B92AF260B854C006BEB05 /* names.txt */,
+				9A6B92B2260B8C7C006BEB05 /* images.txt */,
 			);
 			path = Tori;
 			sourceTree = "<group>";
@@ -125,8 +134,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A6B92A6260B84EC006BEB05 /* LaunchScreen.storyboard in Resources */,
+				9A6B92B3260B8C7C006BEB05 /* images.txt in Resources */,
 				9A6B92A3260B84EC006BEB05 /* Assets.xcassets in Resources */,
 				9A6B92A1260B84EA006BEB05 /* Main.storyboard in Resources */,
+				9A6B92B0260B854C006BEB05 /* names.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A6B929E260B84EA006BEB05 /* ViewController.swift in Sources */,
+				9A6B92BB260B923B006BEB05 /* CardCollectionViewCell.swift in Sources */,
+				9A6B92B6260B9095006BEB05 /* CollectionViewController.swift in Sources */,
 				9A6B929A260B84EA006BEB05 /* AppDelegate.swift in Sources */,
 				9A6B929C260B84EA006BEB05 /* SceneDelegate.swift in Sources */,
 			);
@@ -296,7 +308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = starlessn1ght.Tori;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -315,7 +327,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = starlessn1ght.Tori;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
