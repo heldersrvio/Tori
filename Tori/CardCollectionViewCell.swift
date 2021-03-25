@@ -12,5 +12,5 @@ class CardCollectionViewCell: UICollectionViewCell {
     var frontName: String?
     var isTurnedUp = false
     
-    @IBOutlet weak var frontImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
 }

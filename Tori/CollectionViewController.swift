@@ -8,6 +8,7 @@
 import UIKit
 
 class CollectionViewController: UICollectionViewController {
+    var order = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     var names = [String]()
     var images = [String]()
 
@@ -16,6 +17,12 @@ class CollectionViewController: UICollectionViewController {
 
         loadBirdNames()
         loadBirdImages()
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 15, bottom: 10, right: 15)
+        layout.itemSize = CGSize(width: 160, height: 240)
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 15
+        collectionView.collectionViewLayout = layout
         
         collectionView.reloadData()
     }
@@ -23,8 +30,15 @@ class CollectionViewController: UICollectionViewController {
     func loadBirdNames() {
         if let path = Bundle.main.path(forResource: "names", ofType: "txt") {
             do {
-                let content = try String(contentsOfFile: path)
-                names = content.components(separatedBy: "\n")
+                let components = try String(contentsOfFile: path).components(separatedBy: "\n").filter({ string -> Bool in
+                    return string != ""
+                })
+                order = Array(components.shuffled().map({ name -> Int in
+                    return components.firstIndex(of: name) ?? 0
+                })[0...8])
+                names = order.map({ index -> String in
+                    components[index]
+                }).shuffled()
             } catch {
                 print("Error loading bird names")
             }
@@ -34,8 +48,12 @@ class CollectionViewController: UICollectionViewController {
     func loadBirdImages() {
         if let path = Bundle.main.path(forResource: "images", ofType: "txt") {
             do {
-                let content = try String(contentsOfFile: path)
-                images = content.components(separatedBy: "\n")
+                let components = try String(contentsOfFile: path).components(separatedBy: "\n").filter({ string -> Bool in
+                    return string != ""
+                })
+                images = order.map({ index -> String in
+                    components[index]
+                }).shuffled()
             } catch {
                 print("Error loading bird images")
             }
@@ -43,7 +61,7 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (names.count + images.count ) / 2
+        return names.count + images.count
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -52,20 +70,29 @@ class CollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Card", for: indexPath)
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 3
+        cell.layer.cornerRadius = 5
         if let cardCell = cell as? CardCollectionViewCell {
             cardCell.isTurnedUp = false
+            cardCell.imageView.layer.cornerRadius = 5
+            cardCell.imageView.contentMode = .scaleAspectFill
+            cardCell.imageView.clipsToBounds = true
             if indexPath.row % 2 == 0 {
-                cardCell.frontName = names[indexPath.row]
+                cardCell.frontName = names[indexPath.row / 2]
+                cardCell.imageView.image = UIImage(named: "cardbackground")
             } else {
-                if let image =  UIImage(named: images[indexPath.row - 1]) {
+                if let image =  UIImage(named: images[indexPath.row / 2]) {
                     cardCell.frontImage = image
-                    cardCell.frontImageView.image = image
+                    cardCell.imageView.image = image
                 }
             }
         }
     
         return cell
     }
+    
+    
 
     // MARK: UICollectionViewDelegate
 
