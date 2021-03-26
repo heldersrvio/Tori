@@ -9,8 +9,6 @@ import UIKit
 
 class CardCollectionViewCell: UICollectionViewCell {
     var frontImage: UIImage?
-    var frontName: String?
-    var isTurnedUp = false
     
     @IBOutlet weak var imageView: UIImageView!
 }

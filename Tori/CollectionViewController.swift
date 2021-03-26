@@ -4,19 +4,25 @@
 //
 //  Created by Helder on 03/24/2021.
 //
-
+import Foundation
 import UIKit
 
 class CollectionViewController: UICollectionViewController {
     var order = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    var turnedUpCards: [Int] = []
+    var hiddenCards: [Int] = []
     var names = [String]()
     var images = [String]()
+    var cards = [Card]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loadBirdNames()
         loadBirdImages()
+        cards = (names + images).map({ string -> Card in
+            Card(string: string, type: names.contains(string) ? "name" : "image")
+        }).shuffled()
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 15, bottom: 10, right: 15)
         layout.itemSize = CGSize(width: 160, height: 240)
@@ -38,7 +44,7 @@ class CollectionViewController: UICollectionViewController {
                 })[0...8])
                 names = order.map({ index -> String in
                     components[index]
-                }).shuffled()
+                })
             } catch {
                 print("Error loading bird names")
             }
@@ -53,7 +59,7 @@ class CollectionViewController: UICollectionViewController {
                 })
                 images = order.map({ index -> String in
                     components[index]
-                }).shuffled()
+                })
             } catch {
                 print("Error loading bird images")
             }
@@ -61,7 +67,7 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return names.count + images.count
+        return cards.count
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -74,55 +80,66 @@ class CollectionViewController: UICollectionViewController {
         cell.layer.borderWidth = 3
         cell.layer.cornerRadius = 5
         if let cardCell = cell as? CardCollectionViewCell {
-            cardCell.isTurnedUp = false
             cardCell.imageView.layer.cornerRadius = 5
             cardCell.imageView.contentMode = .scaleAspectFill
             cardCell.imageView.clipsToBounds = true
-            if indexPath.row % 2 == 0 {
-                cardCell.frontName = names[indexPath.row / 2]
-                cardCell.imageView.image = UIImage(named: "cardbackground")
+            if cards[indexPath.row].type == "name" {
+                cardCell.frontImage = returnNameImage(for: cards[indexPath.row].string)
             } else {
-                if let image =  UIImage(named: images[indexPath.row / 2]) {
+                if let image =  UIImage(named: cards[indexPath.row].string) {
                     cardCell.frontImage = image
-                    cardCell.imageView.image = image
                 }
+            }
+            if turnedUpCards.contains(indexPath.row) {
+                cardCell.imageView.image = cardCell.frontImage
+                if turnedUpCards.count == 2 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        [weak self] in
+                        if self?.turnedUpCards.count == 2 {
+                            if let firstTurnedUpCardIndex = self?.turnedUpCards[0], let secondTurnedUpCardIndex = self?.turnedUpCards[1], let firstTurnedUpCard = self?.cards[firstTurnedUpCardIndex], let secondTurnedUpCard = self?.cards[secondTurnedUpCardIndex] {
+                                if firstTurnedUpCard.type != secondTurnedUpCard.type {
+                                    if (firstTurnedUpCard.type == "name" && self?.names.firstIndex(of: firstTurnedUpCard.string) == self?.images.firstIndex(of: secondTurnedUpCard.string)) || (firstTurnedUpCard.type == "image" && self?.names.firstIndex(of: secondTurnedUpCard.string) == self?.images.firstIndex(of: firstTurnedUpCard.string)) {
+                                        self?.hiddenCards.append(firstTurnedUpCardIndex)
+                                        self?.hiddenCards.append(secondTurnedUpCardIndex)
+                                    }
+                                }
+                            }
+                            self?.turnedUpCards = []
+                            self?.collectionView.reloadData()
+                        }
+                    }
+                }
+            } else {
+                cardCell.imageView.image = UIImage(named: "cardbackground")
+            }
+            if hiddenCards.contains(indexPath.row) {
+                cardCell.isHidden = true
             }
         }
     
         return cell
     }
     
+    func returnNameImage(for name: String) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 140, height: 220))
+        return renderer.image { ctx in
+            UIColor.black.set()
+            ctx.fill(CGRect(x: 0, y: 0, width: 140, height: 220))
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let attrs = [
+                NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Thin", size: 36)!,
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ]
+            let string = NSString(string: name)
+            string.draw(with: CGRect(x: 0, y: 85, width: 140, height: 50), options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+        }
+    }
     
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        turnedUpCards.append(indexPath.row)
+        collectionView.reloadData()
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }
