@@ -7,6 +7,11 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="YuGothic-Bold.otf">
+            <string>YuGo-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Collection View Controller-->
         <scene sceneID="9Xj-0z-Q8T">
@@ -22,6 +27,25 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <view key="backgroundView" contentMode="scaleToFill" id="VMM-IT-xmB">
+                            <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="おめでとう" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTi-JQ-qfw">
+                                    <rect key="frame" x="440" y="380" width="300" height="60"/>
+                                    <fontDescription key="fontDescription" name="YuGo-Bold" family="YuGothic" pointSize="60"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.77647058823529413" green="1" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="FTi-JQ-qfw" firstAttribute="centerX" secondItem="VMM-IT-xmB" secondAttribute="centerX" id="8aA-Zw-zg6"/>
+                                <constraint firstItem="FTi-JQ-qfw" firstAttribute="centerY" secondItem="VMM-IT-xmB" secondAttribute="centerY" id="NlU-0q-dSe"/>
+                            </constraints>
+                        </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Card" id="JaH-6V-OiR" customClass="CardCollectionViewCell" customModule="Tori" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="240"/>
@@ -55,6 +79,9 @@
                             <outlet property="delegate" destination="MN4-7c-KyK" id="Ib1-Rj-zga"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="congratulationsLabel" destination="FTi-JQ-qfw" id="VCa-wg-ezj"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ena-d1-OGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

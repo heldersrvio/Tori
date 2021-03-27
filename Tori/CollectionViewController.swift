@@ -14,9 +14,12 @@ class CollectionViewController: UICollectionViewController {
     var names = [String]()
     var images = [String]()
     var cards = [Card]()
-
+    @IBOutlet weak var congratulationsLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.backgroundColor = UIColor(red: 0.77, green: 1, blue: 0.62, alpha: 1)
 
         loadBirdNames()
         loadBirdImages()
@@ -80,6 +83,7 @@ class CollectionViewController: UICollectionViewController {
         cell.layer.borderWidth = 3
         cell.layer.cornerRadius = 5
         if let cardCell = cell as? CardCollectionViewCell {
+            cardCell.backgroundColor = UIColor.white
             cardCell.imageView.layer.cornerRadius = 5
             cardCell.imageView.contentMode = .scaleAspectFill
             cardCell.imageView.clipsToBounds = true
@@ -113,7 +117,18 @@ class CollectionViewController: UICollectionViewController {
                 cardCell.imageView.image = UIImage(named: "cardbackground")
             }
             if hiddenCards.contains(indexPath.row) {
-                cardCell.isHidden = true
+                cardCell.frame = CGRect(x: cardCell.frame.minX, y: cardCell.frame.minY, width: cardCell.frame.width, height: 0)
+            }
+            if hiddenCards.count == cards.count {
+                let labelAttributedString = NSAttributedString(string: "おめでとう", attributes: [
+                    NSAttributedString.Key.strokeColor: UIColor.black,
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.strokeWidth: -2.0,
+                    NSAttributedString.Key.font: UIFont(name: "YuGo-Bold", size: 60)!
+                    ]
+                )
+                congratulationsLabel.attributedText = labelAttributedString
+                congratulationsLabel.isHidden = false
             }
         }
     
@@ -128,7 +143,7 @@ class CollectionViewController: UICollectionViewController {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             let attrs = [
-                NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Thin", size: 36)!,
+                NSAttributedString.Key.font: UIFont(name: "YuGo-Bold", size: 36)!,
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
                 NSAttributedString.Key.foregroundColor: UIColor.white
             ]
@@ -138,8 +153,10 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        turnedUpCards.append(indexPath.row)
-        collectionView.reloadData()
+        if !hiddenCards.contains(indexPath.row) && turnedUpCards.count < 2 {
+            turnedUpCards.append(indexPath.row)
+            collectionView.reloadData()
+        }
     }
 
 }
