@@ -39,11 +39,23 @@
                                     <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                 </label>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRi-AM-9kh">
+                                    <rect key="frame" x="517" y="501" width="146" height="55"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="もう一回">
+                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="tappedReplayButton:" destination="MN4-7c-KyK" eventType="touchUpInside" id="89j-My-awI"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.77647058823529413" green="1" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="FTi-JQ-qfw" firstAttribute="centerX" secondItem="VMM-IT-xmB" secondAttribute="centerX" id="8aA-Zw-zg6"/>
+                                <constraint firstItem="QRi-AM-9kh" firstAttribute="top" secondItem="FTi-JQ-qfw" secondAttribute="bottom" constant="61" id="HeB-2L-WeZ"/>
                                 <constraint firstItem="FTi-JQ-qfw" firstAttribute="centerY" secondItem="VMM-IT-xmB" secondAttribute="centerY" id="NlU-0q-dSe"/>
+                                <constraint firstItem="QRi-AM-9kh" firstAttribute="centerX" secondItem="VMM-IT-xmB" secondAttribute="centerX" id="aHV-Lo-FOa"/>
                             </constraints>
                         </view>
                         <cells>
@@ -81,6 +93,7 @@
                     </collectionView>
                     <connections>
                         <outlet property="congratulationsLabel" destination="FTi-JQ-qfw" id="VCa-wg-ezj"/>
+                        <outlet property="replayButton" destination="QRi-AM-9kh" id="V0M-kw-VWK"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ena-d1-OGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -91,6 +104,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

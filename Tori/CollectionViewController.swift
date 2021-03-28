@@ -14,6 +14,7 @@ class CollectionViewController: UICollectionViewController {
     var names = [String]()
     var images = [String]()
     var cards = [Card]()
+    @IBOutlet weak var replayButton: UIButton!
     @IBOutlet weak var congratulationsLabel: UILabel!
     
     override func viewDidLoad() {
@@ -118,6 +119,8 @@ class CollectionViewController: UICollectionViewController {
             }
             if hiddenCards.contains(indexPath.row) {
                 cardCell.frame = CGRect(x: cardCell.frame.minX, y: cardCell.frame.minY, width: cardCell.frame.width, height: 0)
+            } else {
+                cardCell.frame = CGRect(x: cardCell.frame.minX, y: cardCell.frame.minY, width: cardCell.frame.width, height: 240)
             }
             if hiddenCards.count == cards.count {
                 let labelAttributedString = NSAttributedString(string: "おめでとう", attributes: [
@@ -129,6 +132,7 @@ class CollectionViewController: UICollectionViewController {
                 )
                 congratulationsLabel.attributedText = labelAttributedString
                 congratulationsLabel.isHidden = false
+                replayButton.isHidden = false
             }
         }
     
@@ -158,5 +162,18 @@ class CollectionViewController: UICollectionViewController {
             collectionView.reloadData()
         }
     }
-
+    
+    @IBAction func tappedReplayButton(_ sender: Any) {
+        loadBirdNames()
+        loadBirdImages()
+        cards = (names + images).map({ string -> Card in
+            Card(string: string, type: names.contains(string) ? "name" : "image")
+        }).shuffled()
+        turnedUpCards = []
+        hiddenCards = []
+        congratulationsLabel.isHidden = true
+        replayButton.isHidden = true
+        collectionView.reloadData()
+    }
+    
 }
